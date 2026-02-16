@@ -1,0 +1,165 @@
+# =============================================================================
+# Training Configuration
+# Hybrid YOLO-EfficientNet for Lung Cancer CT Classification
+# =============================================================================
+
+# =============================================================================
+# Model Settings
+# =============================================================================
+model:
+  # Options: yolov8m, yolov8m_effnet, yolov9m, yolov9m_effnet
+  name: yolov8m_effnet
+  
+  # Number of classes
+  nc: 4
+  
+  # EfficientNet backbone settings (for hybrid models)
+  backbone:
+    name: efficientnetv2_m
+    pretrained: true
+    pretrained_weights: imagenet
+    freeze_layers: 0
+    
+  # Feature adapter settings
+  adapter:
+    out_channels: 320
+    use_bn: true
+    activation: silu
+
+# =============================================================================
+# Training Hyperparameters
+# =============================================================================
+training:
+  # Basic settings
+  epochs: 100
+  batch_size: 16
+  imgsz: 640
+  
+  # Learning rate configuration
+  # Options: high, medium (recommended), low
+  lr_config: medium
+  
+  # Learning rate presets
+  lr_presets:
+    high:
+      lr0: 0.01
+      lrf: 0.1
+    medium:  # RECOMMENDED
+      lr0: 0.003
+      lrf: 0.01
+    low:
+      lr0: 0.001
+      lrf: 0.005
+  
+  # Optimizer
+  optimizer: SGD
+  momentum: 0.937
+  weight_decay: 0.0005
+  nesterov: true
+  
+  # Warmup
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+  
+  # Scheduler
+  scheduler: cosine
+  
+  # Early stopping
+  patience: 50
+  min_delta: 0.001
+  
+  # Mixed precision
+  amp: true
+  
+  # Gradient
+  max_grad_norm: 10.0
+
+# =============================================================================
+# Data Augmentation
+# =============================================================================
+augmentation:
+  # Color augmentation
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
+  
+  # Geometric augmentation
+  degrees: 0.0
+  translate: 0.1
+  scale: 0.5
+  shear: 0.0
+  perspective: 0.0
+  
+  # Flip
+  flipud: 0.0
+  fliplr: 0.5
+  
+  # Mosaic & mixup
+  mosaic: 1.0
+  mixup: 0.0
+  copy_paste: 0.0
+  
+  # CLAHE preprocessing
+  clahe:
+    enabled: true
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+    apply_to_classes: [2]  # Large Cell only
+
+# =============================================================================
+# Loss Function
+# =============================================================================
+loss:
+  box: 7.5
+  cls: 0.5
+  dfl: 1.5
+
+# =============================================================================
+# Validation
+# =============================================================================
+validation:
+  val_interval: 1
+  conf_thres: 0.001
+  iou_thres: 0.7
+  max_det: 300
+  half: true
+
+# =============================================================================
+# Logging & Checkpointing
+# =============================================================================
+logging:
+  project: lung-cancer-detection
+  name: null  # Auto-generated
+  save_period: -1
+  plots: true
+  
+  # Weights & Biases
+  wandb:
+    enabled: false
+    project: lung-cancer-ct
+    entity: null
+    
+  # TensorBoard
+  tensorboard:
+    enabled: true
+    log_dir: runs/tensorboard
+
+# =============================================================================
+# Hardware
+# =============================================================================
+hardware:
+  device: 0
+  workers: 8
+  seed: 42
+  deterministic: true
+
+# =============================================================================
+# Inference Settings
+# =============================================================================
+inference:
+  conf_thres: 0.25
+  iou_thres: 0.45
+  max_det: 100
+  half: true
+  agnostic_nms: false

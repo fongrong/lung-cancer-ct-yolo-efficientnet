@@ -1,0 +1,69 @@
+# =============================================================================
+# Lung-PET-CT-Dx Dataset Configuration
+# For use with YOLO training
+# =============================================================================
+
+# Dataset paths (modify according to your setup)
+path: ./data/lung-pet-ct-dx
+train: images/train
+val: images/val
+test: images/test
+
+# Number of classes
+nc: 4
+
+# Class names
+names:
+  0: Adenocarcinoma
+  1: Small_Cell
+  2: Large_Cell
+  3: Squamous_Cell
+
+# =============================================================================
+# Class Mapping from Original Dataset
+# =============================================================================
+# Original Label -> Class ID -> Class Name
+# A -> 0 -> Adenocarcinoma
+# B -> 1 -> Small_Cell
+# E -> 2 -> Large_Cell
+# G -> 3 -> Squamous_Cell
+
+# =============================================================================
+# Dataset Statistics
+# =============================================================================
+# Source: The Cancer Imaging Archive (TCIA)
+# DOI: 10.7937/TCIA.2020.NNC2-0461
+# License: CC BY 4.0
+# 
+# Total patients: 355
+# Total images: 20,783
+#
+# Class Distribution:
+#   Adenocarcinoma:  13,836 (66.5%)
+#   Squamous Cell:    4,281 (20.6%)
+#   Small Cell:       2,053 (9.9%)
+#   Large Cell:         613 (2.9%) - augmented from 201
+
+# =============================================================================
+# Data Split (Patient-Level)
+# =============================================================================
+# Split performed at patient level to prevent data leakage
+# 
+# Training:    70% -> 14,547 images
+# Validation:  10% ->  2,077 images
+# Test:        20% ->  4,159 images
+
+# =============================================================================
+# Preprocessing
+# =============================================================================
+# Image size: 640 x 640 pixels
+# Format: PNG (converted from DICOM)
+# Channels: 3 (RGB)
+
+# =============================================================================
+# Augmentation for Class Imbalance (Large Cell)
+# =============================================================================
+# Applied to Large Cell carcinoma only:
+# - CLAHE: clip_limit=2.0, tile_grid_size=(8,8)
+# - Salt-and-pepper noise: probability=0.02
+# - Augmentation factor: 3x (201 -> 603 images)
