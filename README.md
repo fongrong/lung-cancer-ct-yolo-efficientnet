@@ -7,7 +7,7 @@
 
 Official implementation of **"A Hybrid Deep Learning Framework Integrating YOLO and EfficientNetV2 for Automated Lung Cancer Detection and Histological Classification in CT Imaging"**
 
-📄 **Paper:** Submitted to *Computerized Medical Imaging and Graphics* (Elsevier)
+📄 **Paper:** Submitted to *Biomedical Signal Processing and Control* (Elsevier)
 
 ## 🎯 Highlights
 
@@ -280,7 +280,7 @@ If you find this work useful, please cite:
          for Automated Lung Cancer Detection and Histological Classification 
          in CT Imaging},
   author={Yeh, Jiang-Chou and Shiau, Mu-Kai and Cheng, Bor-Wen and Yang, Feng-Jung},
-  journal={Computerized Medical Imaging and Graphics},
+  journal={Biomedical Signal Processing and Control},
   year={2026},
   publisher={Elsevier}
 }

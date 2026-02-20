@@ -12,7 +12,7 @@ Institutions:
     National Taiwan University Hospital
 
 Paper:
-    Submitted to Computerized Medical Imaging and Graphics (Elsevier)
+    Submitted to Biomedical Signal Processing and Control (Elsevier)
 
 License:
     MIT License
